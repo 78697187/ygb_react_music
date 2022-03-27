@@ -36,16 +36,16 @@ const McAppPlayerBar = memo(() => {
   const audioRef = useRef();
   useEffect(() => {
     //  这里还要改。   传入的还是固定的歌曲id
-    dispatch(getSongDetailAction(29803676));
+    dispatch(getSongDetailAction(488249475));
   }, [dispatch]);
   // 第一次进入的时候设置歌曲的src
   useEffect(()=> {
     audioRef.current.src = getPlaySong(currentSong.id);
-    audioRef.current.play().then(res => {
-      setIsplaying(true);
-    }).catch(err => {
-      setIsplaying(false);
-    })
+    // audioRef.current.play().then(res => {
+    //   setIsplaying(true);
+    // }).catch(err => {
+    //   setIsplaying(false);
+    // })
   }, [currentSong]);
 
   //other handle

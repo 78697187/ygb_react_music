@@ -1,6 +1,10 @@
 import * as actionTypes from './constants';
-import { getSongDetail } from "@/services/player";
+import {
+  getSongDetail,
+  getLyric
+} from "@/services/player";
 import { getRandomNumber } from '@/utils/math-utils';
+import { parseLyric } from '@/utils/parse-lyric';
 
 
 const changeCurrentSongAtion = (currentSong) => ({
@@ -17,6 +21,12 @@ const changeCurrentSongIdexAction = (index) => ({
   type: actionTypes.CHANGE_CURRENT_SONG_INDEX,
   index
 });
+
+const changLyricListAction = (lyricList) => ({
+  type: actionTypes.CHANGE_LYRIC_LIST,
+  lyricList
+})
+
 
 export const changeSequenceAction = (sequence) => ({
   type: actionTypes.CHANGE_SEQUENCE,
@@ -53,6 +63,9 @@ export const changeCurrentIndexAndSongAction = (tag) => {
     // console.log(currentSong);
     dispatch(changeCurrentSongAtion(currentSong));
     dispatch(changeCurrentSongIdexAction(currentSongIndex));
+
+    // 请求歌词
+    dispatch(getLyricAction(currentSong.id));
   }
 }
 
@@ -62,16 +75,21 @@ export const getSongDetailAction = ids => {
     // 1. 根据id查找playList中是否已经有了该歌曲
     const playList = getState().getIn(["player", "playList"]);
     const songIndex = playList.findIndex(song => song.id === ids);
+
+    // 2。 判断是否找到歌曲
+    let song = null;
     if(songIndex !== -1) {
       // 在播放列表中找到歌曲
       dispatch(changeCurrentSongIdexAction(songIndex));
-      const song = playList[songIndex];
+      song = playList[songIndex];
       dispatch(changeCurrentSongAtion(song));
+      // 3. 请求该歌曲的歌词
+      dispatch(getLyricAction(song.id));
     } else {
       // 在播放列表中没有找到歌曲
       // 发送网络请求， 请求歌曲
       getSongDetail(ids).then(res => {
-        const song = res.songs && res.songs[0];
+        song = res.songs && res.songs[0];
         if (!song) return;
 
         // 1. 将最新请求到的歌曲添加到播放列表中
@@ -82,13 +100,22 @@ export const getSongDetailAction = ids => {
         dispatch(changeCurrentSongIdexAction(newPlayLsit.length-1));
         dispatch(changeCurrentSongAtion(song));
         // console.log(res)
+        // 3. 请求该歌曲的歌词
+        dispatch(getLyricAction(song.id));
       });
     }
+
+
+
   }
 }
 
 export const getLyricAction = (id) => {
   return dispatch => {
-
+    getLyric(id).then(res => {
+      const lyric = res.lrc.lyric;
+      const lyricList = parseLyric(lyric);
+      dispatch(changLyricListAction(lyricList));
+    })
   }
 }

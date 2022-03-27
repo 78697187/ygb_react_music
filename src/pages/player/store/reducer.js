@@ -304,10 +304,85 @@ const defaultState = Map({
       "cp": 0,
       "mv": 14494332,
       "publishTime": 1636128000000
+    },
+    {
+      "name": "哪里都是你",
+      "id": 488249475,
+      "pst": 0,
+      "t": 0,
+      "ar": [
+        {
+          "id": 1143033,
+          "name": "队长",
+          "tns": [],
+          "alias": []
+        }
+      ],
+      "alia": [],
+      "pop": 100,
+      "st": 0,
+      "rt": null,
+      "fee": 8,
+      "v": 22,
+      "crbt": null,
+      "cf": "",
+      "al": {
+        "id": 35702116,
+        "name": "哪里都是你",
+        "picUrl": "https://p2.music.126.net/lnOnBbP_H-052Hv5ls-QjA==/109951162964628408.jpg",
+        "tns": [],
+        "pic_str": "109951162964628408",
+        "pic": 109951162964628420
+      },
+      "dt": 222683,
+      "h": {
+        "br": 320000,
+        "fid": 0,
+        "size": 8909889,
+        "vd": -52679
+      },
+      "m": {
+        "br": 192000,
+        "fid": 0,
+        "size": 5345951,
+        "vd": -52679
+      },
+      "l": {
+        "br": 128000,
+        "fid": 0,
+        "size": 3563982,
+        "vd": -52679
+      },
+      "a": null,
+      "cd": "01",
+      "no": 1,
+      "rtUrl": null,
+      "ftype": 0,
+      "rtUrls": [],
+      "djId": 0,
+      "copyright": 0,
+      "s_id": 0,
+      "mark": 64,
+      "originCoverType": 1,
+      "originSongSimpleData": null,
+      "tagPicList": null,
+      "resourceState": true,
+      "version": 22,
+      "songJumpInfo": null,
+      "entertainmentTags": null,
+      "single": 0,
+      "noCopyrightRcmd": null,
+      "rtype": 0,
+      "rurl": null,
+      "mst": 9,
+      "cp": 0,
+      "mv": 14477247,
+      "publishTime": 1499076297913
     }
   ],
   currentSongIndex: 0,
   sequence: 0, // 0 循环 1 随机 2 单曲
+  lyricList: []
 });
 
 function reducer(state = defaultState, action) {
@@ -320,6 +395,8 @@ function reducer(state = defaultState, action) {
       return state.set("currentSongIndex", action.index);
     case actionTypes.CHANGE_SEQUENCE:
       return state.set("sequence", action.sequence);
+    case actionTypes.CHANGE_LYRIC_LIST:
+      return state.set('lyricList', action.lyricList);
     default:
       return state;
   }
