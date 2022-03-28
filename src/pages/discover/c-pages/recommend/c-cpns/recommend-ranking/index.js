@@ -6,7 +6,7 @@ import { getTopListAction } from '../../store/actionCreators';
 import McThemeHeaderRCM from '@/componnets/theme-header-rcm';
 import McTopRanking from '@/componnets/top-ranking';
 import { RankingWrapper } from './style';
-import { UpOutlined } from '@ant-design/icons';
+
 
 
 const McRecommendRanking = memo(() => {

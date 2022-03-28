@@ -72,4 +72,4 @@ const McTopBanner = memo(() => {
   )
 })
 
-export default McTopBanner
+export default McTopBanner;

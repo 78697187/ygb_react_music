@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, Suspense } from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
@@ -16,7 +16,9 @@ const App = memo(() => {
     <Provider store={store}>
       <HashRouter>
         <McAppHeader />
-          {renderRoutes(routes)}
+          <Suspense fallback={<div>page loading</div>}>
+            {renderRoutes(routes)}
+          </Suspense>
         {/* <McFooter /> */}
         <McAppPlayerBar/>
       </HashRouter>

@@ -6,6 +6,7 @@
   const lyrics = []
   for (let line of lineStrings) {
     if (line) {
+      // console.log(typeof line);
       const result = parseExp.exec(line);
       if(!result) continue;
       // console.log(result);
@@ -20,4 +21,4 @@
     }
   }
   return lyrics;
- }
+ } 

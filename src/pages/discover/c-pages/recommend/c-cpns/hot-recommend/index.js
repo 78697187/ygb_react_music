@@ -1,6 +1,5 @@
 import React, { memo, useEffect } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { nanoid } from 'nanoid';
 
 import McThemeHeaderRCM from '@/componnets/theme-header-rcm';
 import McThemeCover from '../../../../../../componnets/songs-cover'

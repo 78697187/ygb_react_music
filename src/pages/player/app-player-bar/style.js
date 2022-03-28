@@ -81,7 +81,7 @@ export const PlayInfo = styled.div`
 
       .song-lyric {
         color: #62cca4;
-        margin-left: 50px;
+        margin-left: 80px;
         font-size: 15px;
       }
     }
@@ -110,7 +110,12 @@ export const PlayInfo = styled.div`
           border: none;
           margin-top: -7px;
           background: url(${require("@/assets/img/sprite_icon.png")}) 0 -250px;
+          display: none;
         }
+        &:hover .ant-slider-handle{
+          display: block;
+        }
+
       }
 
       .time {

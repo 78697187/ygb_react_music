@@ -1,16 +1,28 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Redirect } from "react-router-dom";
 
-import McDiscover from "@/pages/discover";
-import McMine from "@/pages/mine";
-import McFriends from "@/pages/friends";
-import McRecommend from "../pages/discover/c-pages/recommend";
-import McRanking from "../pages/discover/c-pages/ranking";
-import McDjradio from "../pages/discover/c-pages/djradio";
-import McArtist from "../pages/discover/c-pages/artist";
-import McAlbum from "../pages/discover/c-pages/album";
-import McSongs from "../pages/discover/c-pages/songs";
-import McPlayer from "../pages/player";
+const McDiscover = lazy(() => import("@/pages/discover"));
+const McMine = lazy(() => import("@/pages/mine"));
+const McFriends = lazy(() => import("@/pages/friends"));
+const McRecommend = lazy(() => import("@/pages/discover/c-pages/recommend"))
+const McRanking = lazy(() => import("@/pages/discover/c-pages/ranking"));
+const McDjradio = lazy(() => import("@/pages/discover/c-pages/djradio"));
+const McArtist = lazy(() => import("@/pages/discover/c-pages/artist"));
+const McAlbum = lazy(() => import("@/pages/discover/c-pages/album"));
+const McSongs = lazy(() => import("@/pages/discover/c-pages/songs"));
+const McPlayer = lazy(() => import("@/pages/player"));
+
+
+// import McDiscover from "@/pages/discover";
+// import McMine from "@/pages/mine";
+// import McFriends from "@/pages/friends";
+// import McRecommend from "@/pages/discover/c-pages/recommend";
+// import McRanking from "@/pages/discover/c-pages/ranking";
+// import McDjradio from "@/pages/discover/c-pages/djradio";
+// import McArtist from "@/pages/discover/c-pages/artist";
+// import McAlbum from "@/pages/discover/c-pages/album";
+// import McSongs from "@/pages/discover/c-pages/songs";
+// import McPlayer from "@/pages/player";
 
 
 
