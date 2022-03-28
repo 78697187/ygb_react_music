@@ -78,6 +78,12 @@ export const PlayInfo = styled.div`
         color: #a1a1a1;
         margin-left: 10px;
       }
+
+      .song-lyric {
+        color: #62cca4;
+        margin-left: 50px;
+        font-size: 15px;
+      }
     }
 
     .progress {

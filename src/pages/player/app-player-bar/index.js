@@ -5,7 +5,8 @@ import { getSizeImage, formatDate, getPlaySong } from '../../../utils/data-forma
 import {
   getSongDetailAction,
   changeSequenceAction,
-  changeCurrentIndexAndSongAction
+  changeCurrentIndexAndSongAction,
+  changeCurrentLyricItemAction
 } from '../store/actionCreator';
 
 import { NavLink } from 'react-router-dom';
@@ -24,11 +25,14 @@ const McAppPlayerBar = memo(() => {
   const [progress, setProgress] = useState(0);
   const [isChanging, setIsChanging] = useState(false);
   const [isPlaying, setIsplaying] = useState(false);
+  const [showLyric, setLyric] = useState("")
 
 
-  const { currentSong, sequence } = useSelector(state => ({
+  const { currentSong, sequence, lyricList, currentLyricItem_redux } = useSelector(state => ({
     currentSong: state.getIn(["player","currentSong"]),
-    sequence: state.getIn(["player", "sequence"])
+    sequence: state.getIn(["player", "sequence"]),
+    lyricList: state.getIn(["player", "lyricList"]),
+    currentLyricItem_redux: state.getIn(["player", "currentLyricItem"]),
   }), shallowEqual)
 
   const dispatch = useDispatch();
@@ -41,11 +45,11 @@ const McAppPlayerBar = memo(() => {
   // 第一次进入的时候设置歌曲的src
   useEffect(()=> {
     audioRef.current.src = getPlaySong(currentSong.id);
-    // audioRef.current.play().then(res => {
-    //   setIsplaying(true);
-    // }).catch(err => {
-    //   setIsplaying(false);
-    // })
+    audioRef.current.play().then(res => {
+      setIsplaying(true);
+    }).catch(err => {
+      setIsplaying(false);
+    })
   }, [currentSong]);
 
   //other handle
@@ -72,11 +76,31 @@ const McAppPlayerBar = memo(() => {
   }, [isPlaying])
 
   const timeUpdate = (e) => {
+    const currentTime = e.target.currentTime;
     // e.target.currentTime给的是一个秒钟的时间，但是需要毫秒的时间，所以乘以1000
     if( !isChanging ) {
-      setCurrentTime(e.target.currentTime * 1000);
-      setProgress(currentTime / duration * 100);
+      setCurrentTime(currentTime * 1000);
+      setProgress(currentTime * 1000 / duration * 100);
     }
+
+    // 获取当前歌词
+    let currentLyricIndex = 0;
+    for (let i=0; i < lyricList.length; i++) {
+      let lyricItem = lyricList[i];
+      if (currentTime * 1000 < lyricItem.time) {
+        currentLyricIndex = i;
+        break;
+      }
+    }
+    let currentLyricItem = lyricList[currentLyricIndex - 1] || {time:0, content: ""};
+    // 还行， 这两个对象地址不一样。
+    if ( currentLyricItem !== currentLyricItem_redux) {
+      // 将当前的歌词保存到redux中
+      dispatch(changeCurrentLyricItemAction(currentLyricItem));
+      setLyric(currentLyricItem.content || "");
+      // console.log(currentLyricItem);
+    }
+
   }
 
   //（！！！重要）传入组件的函数发生变化的时候 组件会重绘，所以这里不能直接给组件传入函数
@@ -135,8 +159,9 @@ const McAppPlayerBar = memo(() => {
           </div>
           <div className='info'>
             <div className='song'>
-              <span className='song-name'>{currentSong.name}</span>
+              <span>{currentSong.name}</span>
               <a href='/#' className='singer-name'>{singerName}</a>
+              <span className='song-lyric'>{showLyric}</span>
             </div>
             <div className='progress'>
               <Slider value={progress}

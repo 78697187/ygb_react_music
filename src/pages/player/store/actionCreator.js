@@ -25,7 +25,13 @@ const changeCurrentSongIdexAction = (index) => ({
 const changLyricListAction = (lyricList) => ({
   type: actionTypes.CHANGE_LYRIC_LIST,
   lyricList
-})
+});
+
+
+export const changeCurrentLyricItemAction = (currentLyricItem) => ({
+  type: actionTypes.CHANGE_CURRENT_LYRIC_ITEM,
+  currentLyricItem
+});
 
 
 export const changeSequenceAction = (sequence) => ({
@@ -44,6 +50,7 @@ export const changeCurrentIndexAndSongAction = (tag) => {
     switch(sequence) {
       // 随机播放播放
       case 1:
+        // debugger;
         let randomIndex = getRandomNumber(playList.length);
         while(randomIndex  === currentSongIndex){
           randomIndex = getRandomNumber(playList.length);
