@@ -22,12 +22,12 @@ const McRecommendRanking = memo(() => {
 
   // other hooks
   useEffect(()=>{
+    // 热门
+    dispatch(getTopListAction(1));
+    // 原创
+    dispatch(getTopListAction(2));
     // 飙升
-    dispatch(getTopListAction(3))
-    // 新歌
-    dispatch(getTopListAction(1))
-    //原创
-    dispatch(getTopListAction(2))
+    dispatch(getTopListAction(3));
   }, [dispatch])
 
   return (

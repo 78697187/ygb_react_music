@@ -32,3 +32,9 @@ export function getTopList(idx) {
     }
   })
 }
+
+export function getTopLists() {
+  return request({
+    url: 'toplist',
+  })
+}

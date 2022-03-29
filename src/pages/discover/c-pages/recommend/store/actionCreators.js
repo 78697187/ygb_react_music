@@ -31,6 +31,10 @@ const changeOriginalRankingAction = (res) => ({
   type: actionTypes.CHANGE_ORIGINAL_RANKING,
   originalRanking: res.playlist
 })
+const changeNewSongRankingAction = (res) => ({
+  type: actionTypes.CHANGE_NEWSONG_RANKING,
+  newSongRanking: res.playlist
+})
 
 // 获取轮播图数据
 export const getTopBannerAction = () => {
@@ -63,6 +67,9 @@ export const getTopListAction = idx => {
   return dispatch => {
     getTopList(idx).then(res => {
       switch (idx) {
+        case 0:
+          dispatch(changeNewSongRankingAction(res));
+          break;
         case 1:
           dispatch(changeHotRankingAction(res));
           break;

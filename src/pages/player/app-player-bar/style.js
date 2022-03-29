@@ -71,6 +71,7 @@ export const PlayInfo = styled.div`
     .song {
       color: #e1e1e1;
       position: relative;
+      width: 800px;
       top: 8px;
       left: 8px;
 
@@ -81,7 +82,7 @@ export const PlayInfo = styled.div`
 
       .song-lyric {
         color: #62cca4;
-        margin-left: 80px;
+        margin-left: 10px;
         font-size: 15px;
       }
     }
@@ -135,6 +136,7 @@ export const Operator = styled.div`
   display: flex;
   position: relative;
   top: 5px;
+  right: 0;
   /* 这个样式无法继承 */
   /* cursor: pointer; */
 
