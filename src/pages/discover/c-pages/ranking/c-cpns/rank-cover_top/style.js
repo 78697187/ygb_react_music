@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const RankingTopWrapper = styled.div`
   width: 980px;
-  margin: 0 auto;
+  margin: 20px auto;
   display: flex;
 
   .left {
