@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const RankingTopWrapper = styled.div`
   width: 980px;
-  margin: 20px auto;
   display: flex;
 
   .left {
@@ -14,6 +13,9 @@ export const RankingTopWrapper = styled.div`
   }
 
   .list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .list-item {
       position: relative;
       display: flex;

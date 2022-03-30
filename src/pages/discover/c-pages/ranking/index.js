@@ -26,15 +26,20 @@ const McRanking = memo(() => {
     dispatch(getTopListsAction());
     // 新歌榜
     dispatch(getTopListAction(0));
+    // 避免在排行榜页面刷新时 后面三个排行榜没有数据
+    dispatch(getTopListAction(1));
+    dispatch(getTopListAction(2));
+    dispatch(getTopListAction(3));
   }, [dispatch]);
 
   return (
     <RankingWrapper>
-      <McRankCoverTop info={newSongRanking}/>
-      <McRankCoverTop info={upRanking}/>
-      <McRankCoverTop info={hotRanking}/>
-      <McRankCoverTop info={originalRanking}/>
-      <div className='footer'></div>
+      <div className='top_ranking'>
+        <McRankCoverTop info={newSongRanking} />
+        <McRankCoverTop info={upRanking} />
+        <McRankCoverTop info={hotRanking} />
+        <McRankCoverTop info={originalRanking} />
+      </div>
     </RankingWrapper>
   )
 })

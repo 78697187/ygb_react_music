@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 export const RankingWrapper = styled.div`
-  margin-bottom: 100px;
-
-  .footer {
-    height: 200px;;
+  .top_ranking {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 10px;
+    margin-left: 30px;
   }
 `
