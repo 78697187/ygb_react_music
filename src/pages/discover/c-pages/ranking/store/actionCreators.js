@@ -1,17 +1,37 @@
 import * as actionTypes from './constants';
 
-import { getTopLists } from '@/services/recommend';
+import {
+  getTopList,
+  getRankingListDetail
+} from '@/services/ranking';
 
-const changeTopLists = (topLists) => ({
-  type: actionTypes.CHANGE_TOPLISTS,
-  topLists
-});
+const changeTopListAction = (res) => ({
+  type: actionTypes.CHANGE_TOP_LIST,
+  topList: res.list
+})
 
+const changePlayListAction = (res) => ({
+  type: actionTypes.CHANGE_PLAY_LIST,
+  playList: res.playlist
+})
 
-export const getTopListsAction = () => {
+export const changeCurrentIndex = (index) => ({
+  type: actionTypes.CHANGE_CURRENT_INDEX,
+  currentIndex: index
+})
+
+export const getTops = () => {
   return dispatch => {
-    getTopLists().then(res => {
-      dispatch(changeTopLists(res.list));
+    getTopList().then(res => {
+      dispatch(changeTopListAction(res));
+    })
+  }
+}
+
+export const getRanking = (id) => {
+  return dispatch => {
+    getRankingListDetail(id).then(res => {
+      dispatch(changePlayListAction(res))
     })
   }
 }

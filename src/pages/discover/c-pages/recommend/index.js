@@ -10,7 +10,7 @@ import {
   RecommendLeft,
   RecommendRight
 } from './style';
- 
+
 
 const McRecommend = memo((props) => {
 
@@ -24,7 +24,6 @@ const McRecommend = memo((props) => {
           <McRecommendRanking/>
         </RecommendLeft>
         <RecommendRight>
-
         </RecommendRight>
       </Content>
     </RecommendWrapper>
