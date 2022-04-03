@@ -20,7 +20,7 @@ const App = memo(() => {
             {renderRoutes(routes)}
           </Suspense>
         {/* <McFooter /> */}
-        <div className='app_footer_margin_bottom'></div>
+        <div className='app-footer'></div>
         <McAppPlayerBar/>
       </HashRouter>
     </Provider>
