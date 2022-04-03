@@ -6,9 +6,11 @@ import {
   getSongDetailAction,
   changeSequenceAction,
   changeCurrentIndexAndSongAction,
-  changeCurrentLyricItemAction
+  changeCurrentLyricItemAction,
+  changeCurrentLyricIndexAction
 } from '../store/actionCreator';
 
+import McAppPlayPanel from '../app-play-panel';
 import { NavLink } from 'react-router-dom';
 import { Slider } from 'antd';
 import {
@@ -25,7 +27,8 @@ const McAppPlayerBar = memo(() => {
   const [progress, setProgress] = useState(0);
   const [isChanging, setIsChanging] = useState(false);
   const [isPlaying, setIsplaying] = useState(false);
-  const [showLyric, setLyric] = useState("")
+  const [showLyric, setLyric] = useState("");
+  const [showPanel, setShowPanel] = useState(false);
 
 
   const { currentSong, sequence, lyricList, currentLyricItem_redux } = useSelector(state => ({
@@ -95,6 +98,8 @@ const McAppPlayerBar = memo(() => {
     let currentLyricItem = lyricList[currentLyricIndex - 1] || {time:0, content: ""};
     // 还行， 这两个对象地址不一样。
     if ( currentLyricItem !== currentLyricItem_redux) {
+      // 将当前歌词的index放入redux
+      dispatch(changeCurrentLyricIndexAction(currentLyricIndex - 1));
       // 将当前的歌词保存到redux中
       dispatch(changeCurrentLyricItemAction(currentLyricItem));
       setLyric(currentLyricItem.content || "");
@@ -186,13 +191,15 @@ const McAppPlayerBar = memo(() => {
             <button className="sprite_player btn volume"></button>
             <button className="sprite_player btn loop"
                     onClick={e => changeSequence()}></button>
-            <button className="sprite_player btn playlist"></button>
+            <button className="sprite_player btn playlist"
+                    onClick={e => setShowPanel(!showPanel)}></button>
           </div>
         </Operator>
       </div>
       <audio ref={audioRef}
              onTimeUpdate={e => timeUpdate(e)}
              onEnded={e => handleMusicEnded()}/>
+      {showPanel && <McAppPlayPanel/>}
     </PlaybarWrapper>
   )
 })

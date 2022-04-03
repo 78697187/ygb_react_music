@@ -33,6 +33,11 @@ export const changeCurrentLyricItemAction = (currentLyricItem) => ({
   currentLyricItem
 });
 
+export const changeCurrentLyricIndexAction = (currentLyricIndex) => ({
+  type: actionTypes.CHANGE_CURRENT_LYRIC_INDEX,
+  currentLyricIndex
+});
+
 
 export const changeSequenceAction = (sequence) => ({
   type: actionTypes.CHANGE_SEQUENCE,

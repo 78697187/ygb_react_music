@@ -384,6 +384,7 @@ const defaultState = Map({
   sequence: 0, // 0 循环 1 随机 2 单曲
   lyricList: [],
   currentLyricItem: {},  // 存放此时播放的歌词对象{time:time, content:"lyric"}
+  currentLyricIndex: 0,
 });
 
 function reducer(state = defaultState, action) {
@@ -400,6 +401,8 @@ function reducer(state = defaultState, action) {
       return state.set('lyricList', action.lyricList);
     case actionTypes.CHANGE_CURRENT_LYRIC_ITEM:
       return state.set("currentLyricItem", action.currentLyricItem);
+    case actionTypes.CHANGE_CURRENT_LYRIC_INDEX:
+      return state.set("currentLyricIndex", action.currentLyricIndex);
     default:
       return state;
   }

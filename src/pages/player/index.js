@@ -24,4 +24,4 @@ const McPlayer = memo(() => {
   )
 })
 
-export default McPlayer
+export default McPlayer;
