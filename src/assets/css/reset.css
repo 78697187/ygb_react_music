@@ -49,8 +49,15 @@ body, textarea, select, input, button {
 }
 
 .text-nowrap {
+  /* white-space CSS属性是用来设置如何处理元素中的空白
+    nowrap：连续的空白符会被合并。但文本内的换行无效 */
   white-space: nowrap;
+  /* text-overflow CSS 属性确定如何向用户发出未显示的溢出内容信号
+    ellipsis: 这个关键字的意思是“用一个省略号 ('…')来表示被截断的文本” */
   text-overflow: ellipsis;
+  /* overflow 定义当一个元素的内容太大而无法适应 块级格式化上下文 时候该做什么
+    hidden: 如果需要，内容将被剪裁以适合填充框。 不提供滚动条。
+   */
   overflow: hidden;
 }
 

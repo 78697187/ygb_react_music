@@ -24,6 +24,7 @@ import {
 const McAppPlayerBar = memo(() => {
   // props and state
   const [currentTime, setCurrentTime] = useState(0);
+  //进度条显示   不管是播放时的改变，还是拖动进度条的改变都会引起组件的重绘，所以需要设置成State
   const [progress, setProgress] = useState(0);
   const [isChanging, setIsChanging] = useState(false);
   const [isPlaying, setIsplaying] = useState(false);
@@ -58,11 +59,12 @@ const McAppPlayerBar = memo(() => {
   //other handle
   // 初始时，(因为ajax是异步操作)currentSong.al为空 程序直接报错， 这种方法很常用，
   const picUrl = (currentSong.al && currentSong.al.picUrl) || "";
-  const singerName = (currentSong.ar && currentSong.ar[0].name) || "";
+  const singerName = (currentSong.ar && currentSong.ar[0].name) || "未知歌手";
   const duration = currentSong.dt || 0;
+  // 总时长格式化
   const showDuration = formatDate(duration,"mm:ss");
   const showCurrentTime = formatDate(currentTime,"mm:ss");
-  //进度条显示
+  //进度条显示   不管是播放时的改变，还是拖动进度条的改变都会引起组件的重绘，所以需要设置成State
   // const progress = currentTime / duration * 100;
 
   //handle funtion
@@ -81,8 +83,13 @@ const McAppPlayerBar = memo(() => {
   const timeUpdate = (e) => {
     const currentTime = e.target.currentTime;
     // e.target.currentTime给的是一个秒钟的时间，但是需要毫秒的时间，所以乘以1000
+
     if( !isChanging ) {
+      // 把时间移进来的原因是因为，我们在拖动滑块时也在修改时间，而没歌曲的播放进度，这里不移进来，时间会在播放点和拖动点来回的跳动。
+      // 也是就是 如果在拖动，就不让播放这里修改时间
       setCurrentTime(currentTime * 1000);
+      // 当手指在拖动进度条的时候，这里就不该再根据播放的进度来调整进度条
+      // 这里的isChanging会在拖动进度条时设为true，即拖动时，不做处理
       setProgress(currentTime * 1000 / duration * 100);
     }
 
@@ -108,8 +115,9 @@ const McAppPlayerBar = memo(() => {
 
   }
 
-  //（！！！重要）传入组件的函数发生变化的时候 组件会重绘，所以这里不能直接给组件传入函数
+  //（！！！重要）传入子组件的函数发生变化的时候 组件会重绘，所以这里不能直接给组件传入函数
   const sliderChange = useCallback( value => {
+    // 开始拖动的时候设为true
     setIsChanging(true);
     const currentTime = value / 100 * duration;
     setCurrentTime(currentTime)
@@ -120,7 +128,9 @@ const McAppPlayerBar = memo(() => {
     audioRef.current.currentTime = currentTime;
     // 没有这个操作  拖动按钮会回弹一下
     setCurrentTime(currentTime * 1000);
+    // 结束拖动的时候设为false
     setIsChanging(false);
+    // 在歌曲暂停的情况下 如果拖动了滑块， 结束拖动时自动播放
     if(!isPlaying){
       playMusic();
     }

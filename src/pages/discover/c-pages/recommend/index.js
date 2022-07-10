@@ -21,7 +21,7 @@ const McRecommend = memo((props) => {
         <RecommendLeft>
           <McHotRecommend/>
           <McNewAlbum/>
-          <McRecommendRanking/>
+          {/* <McRecommendRanking/> */}
         </RecommendLeft>
         <RecommendRight>
         </RecommendRight>

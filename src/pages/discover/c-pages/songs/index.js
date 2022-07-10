@@ -1,8 +1,15 @@
-import React, { memo } from 'react'
+import React, { memo } from 'react';
+
+
+import {
+  SongsWrapper
+} from './style';
 
 const McSongs = memo(() => {
   return (
-    <div>McSongs</div>
+    <SongsWrapper className='wrap-v2'>
+      McSongs
+    </SongsWrapper>
   )
 })
 

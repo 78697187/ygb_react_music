@@ -44,7 +44,13 @@ const McNewAlbum = memo(() => {
                       {
                         newAlbums.slice(item*NUMBER_ALBUM_PER_PAGE, (item+1)*NUMBER_ALBUM_PER_PAGE).map(
                           iten => {
-                            return <McAlbumCover key={iten.id} info={iten} size={105} width={118} bgp={-570}/>
+                            return <McAlbumCover
+                                      key={iten.id}
+                                      info={iten}
+                                      size={105}
+                                      width={118}
+                                      bgp={-570}
+                                    />
                           }
                         )
                       }
